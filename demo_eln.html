@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="edbbfdbe" class="cell" data-execution_count="39">
+<div id="edbbfdbe" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_base64_image(image_path):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(image_path, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        image_bytes <span class="op">=</span> f.read()</span>
@@ -221,207 +221,229 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>        submit_btn.on_click(on_submit)</span>
 <span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Layout: notebook section headers</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>        notebook_layout <span class="op">=</span> widgets.VBox([</span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h3&gt;Title&lt;/h3&gt;"</span>), title,</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Scientist&lt;/h4&gt;"</span>), owner,</span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Date Range&lt;/h4&gt;"</span>), widgets.HBox([start_date, end_date]),</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Hypothesis&lt;/h4&gt;"</span>), hypothesis_box,</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Materials &amp; Methods&lt;/h4&gt;"</span>), materials_box,</span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Observations&lt;/h4&gt;"</span>), observations_box,</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Upload CSV Files&lt;/h4&gt;"</span>), upload, upload_output,</span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Conclusions&lt;/h4&gt;"</span>), conclusions_box,</span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>            submit_btn</span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>        ], layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>, padding<span class="op">=</span><span class="st">'10px'</span>))</span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>        display(notebook_layout)</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure people want to delete before </span></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> confirm_delete(index):</span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> main_output:</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>        clear_output()</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>        exp <span class="op">=</span> experiment_data[index]</span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="ss">f"""</span></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="ss">            &lt;h3&gt;Are you sure you want to delete &lt;i&gt;</span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/i&gt;?&lt;/h3&gt;</span></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="ss">            &lt;p style='color:red;'&gt;This action cannot be undone.&lt;/p&gt;</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="ss">        """</span>))</span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>        yes_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Yes, Delete"</span>, button_style<span class="op">=</span><span class="st">'danger'</span>)</span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>        no_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Cancel"</span>, button_style<span class="op">=</span><span class="st">'info'</span>)</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Fix: Capture `index` with default arguments</span></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> perform_delete(b, index<span class="op">=</span>index):</span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>            deleted <span class="op">=</span> experiment_data.pop(index)</span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>            clear_output()</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>            display(widgets.HTML(<span class="ss">f"&lt;h3&gt;🗑️ Deleted: &lt;i&gt;</span><span class="sc">{</span>deleted[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/i&gt;&lt;/h3&gt;"</span>))</span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>            show_previous_experiments()</span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>        <span class="co"># cancel delete, keep everything as is </span></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> cancel_delete(b):</span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>            show_previous_experiments()</span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>        yes_btn.on_click(<span class="kw">lambda</span> b: perform_delete(b, index))</span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>        no_btn.on_click(cancel_delete)</span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>        btn_row <span class="op">=</span> widgets.HBox([yes_btn, no_btn])</span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>        display(btn_row)</span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="co"># View Experiments</span></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_previous_experiments():</span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> main_output:</span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>        clear_output()</span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="st">"&lt;h2&gt;Previous Experiments&lt;/h2&gt;"</span>))</span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> experiment_data:</span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>            display(widgets.HTML(<span class="st">"&lt;p&gt;&lt;i&gt;No experiments saved yet.&lt;/i&gt;&lt;/p&gt;"</span>))</span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>            experiment_widgets <span class="op">=</span> []</span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, exp <span class="kw">in</span> <span class="bu">enumerate</span>(experiment_data):</span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>                edit_btn <span class="op">=</span> widgets.Button(</span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>                    description<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>exp[<span class="st">'start_date'</span>]<span class="sc">}</span><span class="ss">)"</span>,</span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>                    button_style<span class="op">=</span><span class="st">'info'</span>,</span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>                    layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'auto'</span>)</span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>                )</span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>                archive_btn <span class="op">=</span> widgets.Button(</span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>                    description<span class="op">=</span><span class="st">"Archive"</span>,</span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>                    button_style<span class="op">=</span><span class="st">'warning'</span>,</span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>                    layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100px'</span>)</span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>                )</span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>                </span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Need to capture index in default arguments</span></span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>                <span class="kw">def</span> delete_experiment(btn, index<span class="op">=</span>i):</span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">with</span> main_output:</span>
-<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>                        clear_output()</span>
-<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>                        deleted <span class="op">=</span> experiment_data.pop(index)</span>
-<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>                        display(widgets.HTML(<span class="ss">f"&lt;h3&gt;Deleted: </span><span class="sc">{</span>deleted[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/h3&gt;"</span>))</span>
-<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a>                        show_previous_experiments()</span>
-<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>                edit_btn.on_click(<span class="kw">lambda</span> b, e<span class="op">=</span>exp: show_add_experiment_form(e))</span>
-<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a>                archive_btn.on_click(<span class="kw">lambda</span> b, idx<span class="op">=</span>i: archive_experiment(idx))</span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>                row <span class="op">=</span> widgets.HBox([edit_btn, archive_btn], layout<span class="op">=</span>widgets.Layout(justify_content<span class="op">=</span><span class="st">'space-between'</span>))</span>
-<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>                experiment_widgets.append(row)</span>
-<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a>            display(widgets.VBox(experiment_widgets))</span>
-<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> archive_experiment(index):</span>
-<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> main_output:</span>
-<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a>        clear_output()</span>
-<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>        exp <span class="op">=</span> experiment_data.pop(index)</span>
-<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>        archived_data.append(exp)</span>
-<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="ss">f"&lt;h3&gt;Archived: &lt;i&gt;</span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/i&gt;&lt;/h3&gt;"</span>))</span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>        show_previous_experiments()</span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_archive():</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>        section_style <span class="op">=</span> widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>, margin<span class="op">=</span><span class="st">'10px 0'</span>)</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>        notebook_layout <span class="op">=</span> widgets.VBox([</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h3&gt;Title&lt;/h3&gt;"</span>), title,</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Scientist&lt;/h4&gt;"</span>), owner,</span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Date Range&lt;/h4&gt;"</span>), widgets.HBox([start_date, end_date]),</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Hypothesis&lt;/h4&gt;"</span>), hypothesis_box,</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Materials &amp; Methods&lt;/h4&gt;"</span>), materials_box,</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Observations&lt;/h4&gt;"</span>), observations_box,</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Upload CSV Files&lt;/h4&gt;"</span>), upload, upload_output,</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>            widgets.HTML(<span class="st">"&lt;h4&gt;Conclusions&lt;/h4&gt;"</span>), conclusions_box,</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>            submit_btn</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>        ], layout<span class="op">=</span>widgets.Layout(</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">'100%'</span>,</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>    max_width<span class="op">=</span><span class="st">'1000px'</span>,</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>    margin<span class="op">=</span><span class="st">'0 auto'</span>,</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">=</span><span class="st">'20px'</span>,</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    align_items<span class="op">=</span><span class="st">'stretch'</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>        display(notebook_layout)</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure people want to delete before </span></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> confirm_delete(index):</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> main_output:</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>        clear_output()</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>        exp <span class="op">=</span> experiment_data[index]</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="ss">f"""</span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="ss">            &lt;h3&gt;Are you sure you want to delete &lt;i&gt;</span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/i&gt;?&lt;/h3&gt;</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="ss">            &lt;p style='color:red;'&gt;This action cannot be undone.&lt;/p&gt;</span></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="ss">        """</span>))</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>        yes_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Yes, Delete"</span>, button_style<span class="op">=</span><span class="st">'danger'</span>)</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>        no_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Cancel"</span>, button_style<span class="op">=</span><span class="st">'info'</span>)</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Fix: Capture `index` with default arguments</span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> perform_delete(b, index<span class="op">=</span>index):</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>            deleted <span class="op">=</span> experiment_data.pop(index)</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>            clear_output()</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>            display(widgets.HTML(<span class="ss">f"&lt;h3&gt;🗑️ Deleted: &lt;i&gt;</span><span class="sc">{</span>deleted[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/i&gt;&lt;/h3&gt;"</span>))</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>            show_previous_experiments()</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>        <span class="co"># cancel delete, keep everything as is </span></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> cancel_delete(b):</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>            show_previous_experiments()</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>        yes_btn.on_click(<span class="kw">lambda</span> b: perform_delete(b, index))</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>        no_btn.on_click(cancel_delete)</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>        btn_row <span class="op">=</span> widgets.HBox([yes_btn, no_btn])</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>        display(btn_row)</span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="co"># View Experiments</span></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_previous_experiments():</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> main_output:</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>        clear_output()</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="st">"&lt;h2&gt;Previous Experiments&lt;/h2&gt;"</span>))</span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> experiment_data:</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>            display(widgets.HTML(<span class="st">"&lt;p&gt;&lt;i&gt;No experiments saved yet.&lt;/i&gt;&lt;/p&gt;"</span>))</span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>            experiment_widgets <span class="op">=</span> []</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, exp <span class="kw">in</span> <span class="bu">enumerate</span>(experiment_data):</span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>                edit_btn <span class="op">=</span> widgets.Button(</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>                    description<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>exp[<span class="st">'start_date'</span>]<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>                    button_style<span class="op">=</span><span class="st">'info'</span>,</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>                    layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'auto'</span>)</span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>                archive_btn <span class="op">=</span> widgets.Button(</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>                    description<span class="op">=</span><span class="st">"Archive"</span>,</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>                    button_style<span class="op">=</span><span class="st">'warning'</span>,</span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>                    layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100px'</span>)</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Need to capture index in default arguments</span></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>                <span class="kw">def</span> delete_experiment(btn, index<span class="op">=</span>i):</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">with</span> main_output:</span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a>                        clear_output()</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>                        deleted <span class="op">=</span> experiment_data.pop(index)</span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>                        display(widgets.HTML(<span class="ss">f"&lt;h3&gt;Deleted: </span><span class="sc">{</span>deleted[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/h3&gt;"</span>))</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>                        show_previous_experiments()</span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>                edit_btn.on_click(<span class="kw">lambda</span> b, e<span class="op">=</span>exp: show_add_experiment_form(e))</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>                archive_btn.on_click(<span class="kw">lambda</span> b, idx<span class="op">=</span>i: archive_experiment(idx))</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a>                row <span class="op">=</span> widgets.HBox([edit_btn, archive_btn], layout<span class="op">=</span>widgets.Layout(justify_content<span class="op">=</span><span class="st">'space-between'</span>))</span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>                experiment_widgets.append(row)</span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>            display(widgets.VBox(experiment_widgets))</span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> archive_experiment(index):</span>
 <span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> main_output:</span>
 <span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>        clear_output()</span>
-<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="st">"&lt;h2&gt;Archived Experiments&lt;/h2&gt;"</span>))</span>
-<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> archived_data:</span>
-<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>            display(widgets.HTML(<span class="st">"&lt;p&gt;&lt;i&gt;No archived experiments.&lt;/i&gt;&lt;/p&gt;"</span>))</span>
-<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>            archive_widgets <span class="op">=</span> []</span>
-<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, exp <span class="kw">in</span> <span class="bu">enumerate</span>(archived_data):</span>
-<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a>                restore_btn <span class="op">=</span> widgets.Button(</span>
-<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a>                    description<span class="op">=</span><span class="ss">f"Restore: </span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>exp[<span class="st">'start_date'</span>]<span class="sc">}</span><span class="ss">)"</span>,</span>
-<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>                    button_style<span class="op">=</span><span class="st">'success'</span>,</span>
-<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a>                    layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'auto'</span>)</span>
-<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a>        exp <span class="op">=</span> experiment_data.pop(index)</span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a>        archived_data.append(exp)</span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="ss">f"&lt;h3&gt;Archived: &lt;i&gt;</span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss">&lt;/i&gt;&lt;/h3&gt;"</span>))</span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>        show_previous_experiments()</span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_archive():</span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> main_output:</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a>        clear_output()</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a>        display(widgets.HTML(<span class="st">"&lt;h2&gt;Archived Experiments&lt;/h2&gt;"</span>))</span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> archived_data:</span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>            display(widgets.HTML(<span class="st">"&lt;p&gt;&lt;i&gt;No archived experiments.&lt;/i&gt;&lt;/p&gt;"</span>))</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a>            archive_widgets <span class="op">=</span> []</span>
 <span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>                <span class="kw">def</span> restore(index<span class="op">=</span>i):</span>
-<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a>                    experiment_data.append(archived_data.pop(index))</span>
-<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a>                    show_archives()</span>
-<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>                restore_btn.on_click(<span class="kw">lambda</span> b, idx<span class="op">=</span>i: restore(idx))</span>
-<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>                archive_widgets.append(restore_btn)</span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, exp <span class="kw">in</span> <span class="bu">enumerate</span>(archived_data):</span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a>                restore_btn <span class="op">=</span> widgets.Button(</span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a>                    description<span class="op">=</span><span class="ss">f"Restore: </span><span class="sc">{</span>exp[<span class="st">'title'</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>exp[<span class="st">'start_date'</span>]<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>                    button_style<span class="op">=</span><span class="st">'success'</span>,</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>                    layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'auto'</span>)</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>                )</span>
 <span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>            display(widgets.VBox(archive_widgets))</span>
-<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a><span class="co"># Sidebar buttons</span></span>
-<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>add_exp_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Add Experiment"</span>, layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>))</span>
-<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>view_exp_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"View Experiments"</span>, layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>))</span>
-<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>archive_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Archives"</span>, layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>))</span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>                <span class="kw">def</span> restore(index<span class="op">=</span>i):</span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a>                    experiment_data.append(archived_data.pop(index))</span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>                    show_archives()</span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>                restore_btn.on_click(<span class="kw">lambda</span> b, idx<span class="op">=</span>i: restore(idx))</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>                archive_widgets.append(restore_btn)</span>
 <span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>add_exp_btn.on_click(<span class="kw">lambda</span> b: show_add_experiment_form())</span>
-<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>view_exp_btn.on_click(<span class="kw">lambda</span> b: show_previous_experiments())</span>
-<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>archive_btn.on_click(<span class="kw">lambda</span> b: show_archive())</span>
-<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a><span class="co"># Sidebar</span></span>
-<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>logo_html <span class="op">=</span> widgets.HTML(get_base64_image(<span class="st">"20_15_visioneers_logo.jpg"</span>))</span>
-<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a>sidebar <span class="op">=</span> widgets.VBox([</span>
-<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>    widgets.HTML(<span class="st">"&lt;h2&gt; Prototype ELN&lt;/h2&gt;"</span>),</span>
-<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>    widgets.Label(<span class="ss">f"Date: </span><span class="sc">{</span>date<span class="sc">.</span>today()<span class="sc">}</span><span class="ss">"</span>),</span>
-<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>    widgets.HTML(<span class="st">"&lt;hr&gt;"</span>),</span>
-<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a>    add_exp_btn,</span>
-<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a>    view_exp_btn,</span>
-<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a>    archive_btn,</span>
-<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a>    logo_html,</span>
-<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a>    widgets.HTML(<span class="st">"&lt;div class='footer'&gt;20/15 Visioneers&lt;br&gt;ELN demo&lt;/div&gt;"</span>)</span>
-<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a>], layout<span class="op">=</span>widgets.Layout(</span>
-<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">'25%'</span>,</span>
-<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a>    border<span class="op">=</span><span class="st">'solid 1px lightgray'</span>,</span>
-<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">=</span><span class="st">'10px'</span>,</span>
-<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">'100vh'</span>  </span>
-<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a>), _dom_classes<span class="op">=</span>[<span class="st">'sidebar-box'</span>])</span>
-<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a><span class="co"># Layout</span></span>
-<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a>app_layout <span class="op">=</span> widgets.HBox([</span>
-<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a>    sidebar,</span>
-<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a>    widgets.VBox([main_output], layout<span class="op">=</span>widgets.Layout(padding<span class="op">=</span><span class="st">'20px'</span>))</span>
-<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a>], layout<span class="op">=</span>widgets.Layout(border<span class="op">=</span><span class="st">'solid 1px #ddd'</span>))</span>
-<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_file_widgets(folder):</span>
-<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a>    widgets_list <span class="op">=</span> []</span>
-<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(folder):</span>
-<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> widgets.HTML(<span class="st">"&lt;i&gt;No uploaded files.&lt;/i&gt;"</span>)</span>
-<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fname <span class="kw">in</span> os.listdir(folder):</span>
-<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a>        fpath <span class="op">=</span> os.path.join(folder, fname)</span>
-<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a>        file_buttons <span class="op">=</span> []</span>
-<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a>        view_button <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="ss">f"View: </span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">"</span>, button_style<span class="op">=</span><span class="st">'info'</span>)</span>
-<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a>       <span class="co"># view </span></span>
-<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> on_view_click(b, path<span class="op">=</span>fpath):</span>
-<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> main_output:</span>
-<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a>                clear_output()</span>
-<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span>:</span>
-<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> path.endswith(<span class="st">".csv"</span>):</span>
-<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a>                        df <span class="op">=</span> pd.read_csv(path)</span>
-<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a>                        display(widgets.HTML(<span class="ss">f"&lt;h3&gt;</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">&lt;/h3&gt;"</span>))</span>
-<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a>                        display(df)</span>
-<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
-<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a>                        display(widgets.HTML(<span class="ss">f"&lt;pre&gt;Preview not supported for: </span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">&lt;/pre&gt;"</span>))</span>
-<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a>                <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a>                    display(widgets.HTML(<span class="ss">f"&lt;p style='color:red;'&gt;Error reading </span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">&lt;/p&gt;"</span>))</span>
-<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a>        view_button.on_click(on_view_click)</span>
-<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>        file_buttons.append(view_button)</span>
-<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Optional: Stats button (as before)</span></span>
-<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> fname.endswith(<span class="st">'.csv'</span>):</span>
-<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a>            stats_button <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Search Stats"</span>, button_style<span class="op">=</span><span class="st">'warning'</span>)</span>
-<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a>            stats_button.on_click(<span class="kw">lambda</span> b: <span class="bu">print</span>(<span class="st">"work in progress"</span>))</span>
-<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a>            file_buttons.append(stats_button)</span>
-<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-294"><a href="#cb3-294" aria-hidden="true" tabindex="-1"></a>        delete_button <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Delete"</span>, button_style<span class="op">=</span><span class="st">'danger'</span>)</span>
-<span id="cb3-295"><a href="#cb3-295" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> on_delete_click(b, p<span class="op">=</span>fpath):</span>
-<span id="cb3-296"><a href="#cb3-296" aria-hidden="true" tabindex="-1"></a>            os.remove(p)</span>
-<span id="cb3-297"><a href="#cb3-297" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> main_output:</span>
-<span id="cb3-298"><a href="#cb3-298" aria-hidden="true" tabindex="-1"></a>                clear_output()</span>
-<span id="cb3-299"><a href="#cb3-299" aria-hidden="true" tabindex="-1"></a>                display(widgets.HTML(<span class="ss">f"&lt;p style='color:red;'&gt;Deleted </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">&lt;/p&gt;"</span>))</span>
-<span id="cb3-300"><a href="#cb3-300" aria-hidden="true" tabindex="-1"></a>        delete_button.on_click(on_delete_click)</span>
-<span id="cb3-301"><a href="#cb3-301" aria-hidden="true" tabindex="-1"></a>        file_buttons.append(delete_button)</span>
-<span id="cb3-302"><a href="#cb3-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-303"><a href="#cb3-303" aria-hidden="true" tabindex="-1"></a>        widgets_list.append(widgets.HBox(file_buttons))</span>
-<span id="cb3-304"><a href="#cb3-304" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> widgets.VBox(widgets_list)</span>
-<span id="cb3-305"><a href="#cb3-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>            display(widgets.VBox(archive_widgets))</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a><span class="co"># Sidebar buttons</span></span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>add_exp_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Add Experiment"</span>, layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>))</span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>view_exp_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"View Experiments"</span>, layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>))</span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>archive_btn <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Archives"</span>, layout<span class="op">=</span>widgets.Layout(width<span class="op">=</span><span class="st">'100%'</span>))</span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>add_exp_btn.on_click(<span class="kw">lambda</span> b: show_add_experiment_form())</span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>view_exp_btn.on_click(<span class="kw">lambda</span> b: show_previous_experiments())</span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>archive_btn.on_click(<span class="kw">lambda</span> b: show_archive())</span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a><span class="co"># Sidebar</span></span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a>logo_html <span class="op">=</span> widgets.HTML(get_base64_image(<span class="st">"20_15_visioneers_logo.jpg"</span>))</span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a>sidebar <span class="op">=</span> widgets.VBox([</span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a>    widgets.HTML(<span class="st">"&lt;h2&gt; Prototype ELN&lt;/h2&gt;"</span>),</span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a>    widgets.Label(<span class="ss">f"Date: </span><span class="sc">{</span>date<span class="sc">.</span>today()<span class="sc">}</span><span class="ss">"</span>),</span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a>    widgets.HTML(<span class="st">"&lt;hr&gt;"</span>),</span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a>    add_exp_btn,</span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a>    view_exp_btn,</span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a>    archive_btn,</span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a>    logo_html,</span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a>    widgets.HTML(<span class="st">"&lt;div class='footer'&gt;20/15 Visioneers&lt;br&gt;ELN demo&lt;/div&gt;"</span>)</span>
+<span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a>], layout<span class="op">=</span>widgets.Layout(</span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">'25%'</span>,</span>
+<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a>    border<span class="op">=</span><span class="st">'solid 1px lightgray'</span>,</span>
+<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">=</span><span class="st">'10px'</span>,</span>
+<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">'100vh'</span>  </span>
+<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a>), _dom_classes<span class="op">=</span>[<span class="st">'sidebar-box'</span>])</span>
+<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a><span class="co"># Layout</span></span>
+<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a>main_panel <span class="op">=</span> widgets.VBox(</span>
+<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a>    [main_output],</span>
+<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a>    layout<span class="op">=</span>widgets.Layout(</span>
+<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a>        width<span class="op">=</span><span class="st">'100%'</span>,</span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a>        flex<span class="op">=</span><span class="st">'1'</span>,</span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a>        padding<span class="op">=</span><span class="st">'30px 60px'</span>,</span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a>        overflow<span class="op">=</span><span class="st">'auto'</span>,</span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a>        align_items<span class="op">=</span><span class="st">'stretch'</span></span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a>app_layout <span class="op">=</span> widgets.HBox([</span>
+<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a>    sidebar,</span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a>    main_panel</span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a>], layout<span class="op">=</span>widgets.Layout(</span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">'100%'</span>,</span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">'100vh'</span>,</span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a>    overflow<span class="op">=</span><span class="st">'hidden'</span></span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_file_widgets(folder):</span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a>    widgets_list <span class="op">=</span> []</span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(folder):</span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> widgets.HTML(<span class="st">"&lt;i&gt;No uploaded files.&lt;/i&gt;"</span>)</span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fname <span class="kw">in</span> os.listdir(folder):</span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a>        fpath <span class="op">=</span> os.path.join(folder, fname)</span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a>        file_buttons <span class="op">=</span> []</span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a>        view_button <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="ss">f"View: </span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">"</span>, button_style<span class="op">=</span><span class="st">'info'</span>)</span>
+<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a>       <span class="co"># view </span></span>
+<span id="cb3-294"><a href="#cb3-294" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> on_view_click(b, path<span class="op">=</span>fpath):</span>
+<span id="cb3-295"><a href="#cb3-295" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> main_output:</span>
+<span id="cb3-296"><a href="#cb3-296" aria-hidden="true" tabindex="-1"></a>                clear_output()</span>
+<span id="cb3-297"><a href="#cb3-297" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span>:</span>
+<span id="cb3-298"><a href="#cb3-298" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> path.endswith(<span class="st">".csv"</span>):</span>
+<span id="cb3-299"><a href="#cb3-299" aria-hidden="true" tabindex="-1"></a>                        df <span class="op">=</span> pd.read_csv(path)</span>
+<span id="cb3-300"><a href="#cb3-300" aria-hidden="true" tabindex="-1"></a>                        display(widgets.HTML(<span class="ss">f"&lt;h3&gt;</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">&lt;/h3&gt;"</span>))</span>
+<span id="cb3-301"><a href="#cb3-301" aria-hidden="true" tabindex="-1"></a>                        display(df)</span>
+<span id="cb3-302"><a href="#cb3-302" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb3-303"><a href="#cb3-303" aria-hidden="true" tabindex="-1"></a>                        display(widgets.HTML(<span class="ss">f"&lt;pre&gt;Preview not supported for: </span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">&lt;/pre&gt;"</span>))</span>
+<span id="cb3-304"><a href="#cb3-304" aria-hidden="true" tabindex="-1"></a>                <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb3-305"><a href="#cb3-305" aria-hidden="true" tabindex="-1"></a>                    display(widgets.HTML(<span class="ss">f"&lt;p style='color:red;'&gt;Error reading </span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">&lt;/p&gt;"</span>))</span>
 <span id="cb3-306"><a href="#cb3-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-307"><a href="#cb3-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-308"><a href="#cb3-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Display UI</span></span>
-<span id="cb3-309"><a href="#cb3-309" aria-hidden="true" tabindex="-1"></a>display(app_layout)</span>
-<span id="cb3-310"><a href="#cb3-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-311"><a href="#cb3-311" aria-hidden="true" tabindex="-1"></a><span class="co"># Default View</span></span>
-<span id="cb3-312"><a href="#cb3-312" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> main_output:</span>
-<span id="cb3-313"><a href="#cb3-313" aria-hidden="true" tabindex="-1"></a>    clear_output()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-307"><a href="#cb3-307" aria-hidden="true" tabindex="-1"></a>        view_button.on_click(on_view_click)</span>
+<span id="cb3-308"><a href="#cb3-308" aria-hidden="true" tabindex="-1"></a>        file_buttons.append(view_button)</span>
+<span id="cb3-309"><a href="#cb3-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-310"><a href="#cb3-310" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Optional: Stats button (as before)</span></span>
+<span id="cb3-311"><a href="#cb3-311" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> fname.endswith(<span class="st">'.csv'</span>):</span>
+<span id="cb3-312"><a href="#cb3-312" aria-hidden="true" tabindex="-1"></a>            stats_button <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Search Stats"</span>, button_style<span class="op">=</span><span class="st">'warning'</span>)</span>
+<span id="cb3-313"><a href="#cb3-313" aria-hidden="true" tabindex="-1"></a>            stats_button.on_click(<span class="kw">lambda</span> b: <span class="bu">print</span>(<span class="st">"work in progress"</span>))</span>
+<span id="cb3-314"><a href="#cb3-314" aria-hidden="true" tabindex="-1"></a>            file_buttons.append(stats_button)</span>
+<span id="cb3-315"><a href="#cb3-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-316"><a href="#cb3-316" aria-hidden="true" tabindex="-1"></a>        delete_button <span class="op">=</span> widgets.Button(description<span class="op">=</span><span class="st">"Delete"</span>, button_style<span class="op">=</span><span class="st">'danger'</span>)</span>
+<span id="cb3-317"><a href="#cb3-317" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> on_delete_click(b, p<span class="op">=</span>fpath):</span>
+<span id="cb3-318"><a href="#cb3-318" aria-hidden="true" tabindex="-1"></a>            os.remove(p)</span>
+<span id="cb3-319"><a href="#cb3-319" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> main_output:</span>
+<span id="cb3-320"><a href="#cb3-320" aria-hidden="true" tabindex="-1"></a>                clear_output()</span>
+<span id="cb3-321"><a href="#cb3-321" aria-hidden="true" tabindex="-1"></a>                display(widgets.HTML(<span class="ss">f"&lt;p style='color:red;'&gt;Deleted </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">&lt;/p&gt;"</span>))</span>
+<span id="cb3-322"><a href="#cb3-322" aria-hidden="true" tabindex="-1"></a>        delete_button.on_click(on_delete_click)</span>
+<span id="cb3-323"><a href="#cb3-323" aria-hidden="true" tabindex="-1"></a>        file_buttons.append(delete_button)</span>
+<span id="cb3-324"><a href="#cb3-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-325"><a href="#cb3-325" aria-hidden="true" tabindex="-1"></a>        widgets_list.append(widgets.HBox(file_buttons))</span>
+<span id="cb3-326"><a href="#cb3-326" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> widgets.VBox(widgets_list)</span>
+<span id="cb3-327"><a href="#cb3-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-328"><a href="#cb3-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-329"><a href="#cb3-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-330"><a href="#cb3-330" aria-hidden="true" tabindex="-1"></a><span class="co"># Display UI</span></span>
+<span id="cb3-331"><a href="#cb3-331" aria-hidden="true" tabindex="-1"></a>display(app_layout)</span>
+<span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-333"><a href="#cb3-333" aria-hidden="true" tabindex="-1"></a><span class="co"># Default View</span></span>
+<span id="cb3-334"><a href="#cb3-334" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> main_output:</span>
+<span id="cb3-335"><a href="#cb3-335" aria-hidden="true" tabindex="-1"></a>    clear_output()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 <style>
@@ -434,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"da4856d8df774fea8a3bbee1ac642156","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"1e0c94441a434dd2bc049f0cb07d4277","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
